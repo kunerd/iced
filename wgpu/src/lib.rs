@@ -132,7 +132,7 @@ impl Renderer {
         }
     }
 
-    fn draw(
+    pub fn draw(
         &mut self,
         clear_color: Option<Color>,
         target: &wgpu::TextureView,
@@ -176,6 +176,14 @@ impl Renderer {
         let submission = self.engine.queue.submit([encoder.finish()]);
         self.staging_belt.recall();
         submission
+    }
+
+    pub fn staging_belt_finish(&mut self) {
+        self.staging_belt.finish();
+    }
+
+    pub fn staging_belt_recall(&mut self) {
+        self.staging_belt.recall();
     }
 
     /// Renders the current surface to an offscreen buffer.
